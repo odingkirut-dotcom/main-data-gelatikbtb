@@ -24,9 +24,9 @@ gelatik_b64 = get_base64_image(GELATIK_IMG_PATH)
 
 sidebar_logo_html = (
     f'<div style="background:rgba(248,250,252,0.96);padding:8px 12px;border-radius:10px;'
-    f'border:1px solid rgba(251,191,36,0.45);margin-bottom:8px;display:inline-block;">'
+    f'border:1px solid rgba(251,191,36,0.45);margin-bottom:10px;width:100%;max-width:210px;">'
     f'<img src="data:image/png;base64,{gelatik_b64}" alt="Logo Gelatik" '
-    f'style="height:36px;width:auto;display:block;" /></div>'
+    f'style="width:100%;max-height:46px;object-fit:contain;display:block;" /></div>'
     if gelatik_b64
     else ""
 )
@@ -35,7 +35,7 @@ badge_logo_html = (
     f'<span style="background:rgba(248,250,252,0.96);padding:3px 8px;border-radius:6px;'
     f'margin-right:8px;display:inline-flex;align-items:center;">'
     f'<img src="data:image/png;base64,{gelatik_b64}" alt="Logo Gelatik" '
-    f'style="height:18px;width:auto;display:block;" /></span>'
+    f'style="height:18px;width:auto;object-fit:contain;display:block;" /></span>'
     if gelatik_b64
     else ""
 )
