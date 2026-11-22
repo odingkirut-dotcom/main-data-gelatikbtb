@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# 2. CSS Kustom: Gabungan Burung Gelatik (Slate/Putih) & Lebah (Amber/Hex)
+# 2. CSS Kustom: Gabungan Burung Gelatik (Slate/Putih) & BTB (Amber/Hex)
 st.markdown(
     """
     <style>
@@ -25,7 +25,7 @@ st.markdown(
             background-position: 0 0, 0 0, 0 0, 14px 14px;
         }
 
-        .hero-gelatik-bee {
+        .hero-gelatik-btb {
             background: linear-gradient(135deg, rgba(24, 32, 40, 0.94), rgba(15, 20, 26, 0.96));
             border: 1px solid rgba(251, 191, 36, 0.35);
             border-left: 5px solid #FBBF24;
@@ -107,7 +107,7 @@ def new_tab_button(label: str, url: str) -> str:
 
 # 3. Sidebar Navigasi
 with st.sidebar:
-    st.markdown("### 🐦🐝 GELATIK × BEE")
+    st.markdown("### 🐦🐝 GELATIK × BTB")
     st.caption("Portal Utama Sistem Database")
     st.divider()
 
@@ -134,8 +134,8 @@ with st.sidebar:
 if menu == "🏠 Beranda Utama":
     st.markdown(
         """
-        <div class="hero-gelatik-bee">
-            <div class="fusion-badge">🐦 Gelatik × 🐝 Lebah • Database Hub</div>
+        <div class="hero-gelatik-btb">
+            <div class="fusion-badge">🐦 GELATIK × BTB • Database Hub</div>
             <div class="hero-title">Pusat Navigasi & Gerbang Database</div>
             <p class="hero-desc">
                 Halaman utama terpadu untuk mengakses berbagai modul database, katalog koleksi,
