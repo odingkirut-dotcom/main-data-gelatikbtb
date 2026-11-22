@@ -1,16 +1,46 @@
+import base64
+from pathlib import Path
 import streamlit as st
 
 LINK_PENCARIAN_QUERY = "https://dashboard-gelatik-a6gbsfmcxgwueejswhve6a.streamlit.app/"
+GELATIK_IMG_PATH = Path("gelatik.png")
 
 # 1. Konfigurasi Halaman
 st.set_page_config(
     page_title="GELATIK × BTB // DB Portal",
-    page_icon="🐦",
+    page_icon=str(GELATIK_IMG_PATH) if GELATIK_IMG_PATH.exists() else "DB",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# 2. CSS Kustom: Gabungan Burung Gelatik (Slate/Putih) & BTB (Amber/Hex)
+
+def get_base64_image(path: Path) -> str | None:
+    if not path.exists():
+        return None
+    return base64.b64encode(path.read_bytes()).decode("utf-8")
+
+
+gelatik_b64 = get_base64_image(GELATIK_IMG_PATH)
+
+sidebar_logo_html = (
+    f'<div style="background:rgba(248,250,252,0.96);padding:8px 12px;border-radius:10px;'
+    f'border:1px solid rgba(251,191,36,0.45);margin-bottom:8px;display:inline-block;">'
+    f'<img src="data:image/png;base64,{gelatik_b64}" alt="Logo Gelatik" '
+    f'style="height:36px;width:auto;display:block;" /></div>'
+    if gelatik_b64
+    else ""
+)
+
+badge_logo_html = (
+    f'<span style="background:rgba(248,250,252,0.96);padding:3px 8px;border-radius:6px;'
+    f'margin-right:8px;display:inline-flex;align-items:center;">'
+    f'<img src="data:image/png;base64,{gelatik_b64}" alt="Logo Gelatik" '
+    f'style="height:18px;width:auto;display:block;" /></span>'
+    if gelatik_b64
+    else ""
+)
+
+# 2. CSS Kustom: Gabungan Gelatik & BTB (Amber/Hex)
 st.markdown(
     """
     <style>
@@ -36,7 +66,8 @@ st.markdown(
         }
 
         .fusion-badge {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 1px;
@@ -44,7 +75,7 @@ st.markdown(
             color: #FBBF24;
             background: rgba(251, 191, 36, 0.12);
             border: 1px solid rgba(251, 191, 36, 0.40);
-            padding: 4px 12px;
+            padding: 5px 12px;
             border-radius: 999px;
             margin-bottom: 12px;
         }
@@ -107,19 +138,20 @@ def new_tab_button(label: str, url: str) -> str:
 
 # 3. Sidebar Navigasi
 with st.sidebar:
-    st.markdown("### 🐦🐝 GELATIK × BTB")
+    st.markdown(sidebar_logo_html, unsafe_allow_html=True)
+    st.markdown("### GELATIK × BTB")
     st.caption("Portal Utama Sistem Database")
     st.divider()
 
     menu = st.radio(
         "NAVIGASI MODUL",
         [
-            "🏠 Beranda Utama",
-            "📂 Katalog Database",
-            "🔍 Pencarian & Query",
-            "📝 Input & Pembaruan",
-            "📘 Arsitektur & Panduan",
-            "🔗 Tautan & Integrasi",
+            "Beranda Utama",
+            "Katalog Database",
+            "Pencarian & Query",
+            "Input & Pembaruan",
+            "Arsitektur & Panduan",
+            "Tautan & Integrasi",
         ],
     )
 
@@ -131,11 +163,11 @@ with st.sidebar:
     )
 
 # 4. Halaman Utama (Tanpa Data Dummy)
-if menu == "🏠 Beranda Utama":
+if menu == "Beranda Utama":
     st.markdown(
-        """
+        f"""
         <div class="hero-gelatik-btb">
-            <div class="fusion-badge">🐦 GELATIK × BTB • Database Hub</div>
+            <div class="fusion-badge">{badge_logo_html}GELATIK × BTB • Database Hub</div>
             <div class="hero-title">Pusat Navigasi & Gerbang Database</div>
             <p class="hero-desc">
                 Halaman utama terpadu untuk mengakses berbagai modul database, katalog koleksi,
@@ -147,21 +179,21 @@ if menu == "🏠 Beranda Utama":
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="section-label">◈ Daftar Modul Utama</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-label">Daftar Modul Utama</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
 
     with col1:
         with st.container(border=True):
             st.caption("MODUL 01")
-            st.markdown("#### 📂 Katalog Database")
+            st.markdown("#### Katalog Database")
             st.write("Akses indeks koleksi database, kategori arsip, dan daftar repositori data.")
             st.button("Akses Segera Hadir", key="m1", disabled=True)
 
     with col2:
         with st.container(border=True):
             st.caption("MODUL 02 • TERHUBUNG")
-            st.markdown("#### 🔍 Pencarian & Query")
+            st.markdown("#### Pencarian & Query")
             st.write("Penelusuran data terarah menggunakan filter kategori, parameter, dan kata kunci.")
             st.markdown(
                 new_tab_button("Buka Pencarian & Query ↗", LINK_PENCARIAN_QUERY),
@@ -171,7 +203,7 @@ if menu == "🏠 Beranda Utama":
     with col3:
         with st.container(border=True):
             st.caption("MODUL 03")
-            st.markdown("#### 📝 Input & Pembaruan")
+            st.markdown("#### Input & Pembaruan")
             st.write("Portal terpusat untuk menambahkan entri baru dan memperbarui data tersimpan.")
             st.button("Akses Segera Hadir", key="m3", disabled=True)
 
@@ -182,28 +214,28 @@ if menu == "🏠 Beranda Utama":
     with col4:
         with st.container(border=True):
             st.caption("MODUL 04")
-            st.markdown("#### 📘 Arsitektur & Panduan")
+            st.markdown("#### Arsitektur & Panduan")
             st.write("Referensi struktur tabel, standar format data, dan pedoman penggunaan.")
             st.button("Akses Segera Hadir", key="m4", disabled=True)
 
     with col5:
         with st.container(border=True):
             st.caption("MODUL 05")
-            st.markdown("#### 🔗 Tautan & Integrasi")
+            st.markdown("#### Tautan & Integrasi")
             st.write("Jalur penghubung ke sumber data eksternal, sheet, atau layanan pendukung.")
             st.button("Akses Segera Hadir", key="m5", disabled=True)
 
     with col6:
         with st.container(border=True):
             st.caption("MODUL 06")
-            st.markdown("#### 🛡️ Protokol & Akses")
+            st.markdown("#### Protokol & Akses")
             st.write("Pengaturan hak akses, aturan keamanan, dan catatan pembaruan sistem.")
             st.button("Akses Segera Hadir", key="m6", disabled=True)
 
 # 5. Halaman Pencarian & Query
-elif menu == "🔍 Pencarian & Query":
-    st.markdown('<div class="section-label">◈ MODUL 02 • PENCARIAN & QUERY</div>', unsafe_allow_html=True)
-    st.title("🔍 Pencarian & Query")
+elif menu == "Pencarian & Query":
+    st.markdown('<div class="section-label">MODUL 02 • PENCARIAN & QUERY</div>', unsafe_allow_html=True)
+    st.title("Pencarian & Query")
     st.write("Dashboard dibuka di tab baru sementara halaman utama GELATIK × BTB tetap terbuka.")
     st.markdown(
         new_tab_button("Buka Dashboard Pencarian & Query ↗", LINK_PENCARIAN_QUERY),
@@ -212,6 +244,6 @@ elif menu == "🔍 Pencarian & Query":
 
 # 6. Halaman Placeholder untuk Menu Lain
 else:
-    st.markdown(f'<div class="section-label">◈ {menu}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="section-label">{menu}</div>', unsafe_allow_html=True)
     st.title(menu)
     st.info("Kerangka halaman sudah siap. Tautan dan fitur modul ini akan ditambahkan menyusul.")
