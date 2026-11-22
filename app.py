@@ -4,88 +4,93 @@ LINK_PENCARIAN_QUERY = "https://dashboard-gelatik-a6gbsfmcxgwueejswhve6a.streaml
 
 # 1. Konfigurasi Halaman
 st.set_page_config(
-    page_title="NEXUS DB // Portal",
-    page_icon="⚡",
+    page_title="GELATIK × BEE // DB Portal",
+    page_icon="🐦",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# 2. CSS Kustom Nuansa Futuristik + Tombol Link New Tab
+# 2. CSS Kustom: Gabungan Burung Gelatik (Slate/Putih) & Lebah (Amber/Hex)
 st.markdown(
     """
     <style>
         .stApp {
-            background: radial-gradient(circle at top right, rgba(0, 229, 255, 0.08), transparent 35%),
-                        radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.08), transparent 40%),
-                        #070B14;
+            background-color: #0E1216;
+            background-image:
+                radial-gradient(circle at 85% 15%, rgba(251, 191, 36, 0.10), transparent 35%),
+                radial-gradient(circle at 15% 85%, rgba(148, 163, 184, 0.10), transparent 40%),
+                radial-gradient(rgba(251, 191, 36, 0.06) 1px, transparent 1px),
+                radial-gradient(rgba(148, 163, 184, 0.05) 1px, #0E1216 1px);
+            background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px;
+            background-position: 0 0, 0 0, 0 0, 14px 14px;
         }
 
-        .hero-box {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(10, 17, 32, 0.92));
-            border: 1px solid rgba(0, 229, 255, 0.28);
+        .hero-gelatik-bee {
+            background: linear-gradient(135deg, rgba(24, 32, 40, 0.94), rgba(15, 20, 26, 0.96));
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            border-left: 5px solid #FBBF24;
             border-radius: 16px;
             padding: 28px 32px;
-            box-shadow: 0 0 28px rgba(0, 229, 255, 0.07);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
             margin-bottom: 20px;
         }
 
-        .sys-badge {
+        .fusion-badge {
             display: inline-block;
             font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 1.2px;
+            font-weight: 700;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            color: #00E5FF;
-            background: rgba(0, 229, 255, 0.10);
-            border: 1px solid rgba(0, 229, 255, 0.35);
+            color: #FBBF24;
+            background: rgba(251, 191, 36, 0.12);
+            border: 1px solid rgba(251, 191, 36, 0.40);
             padding: 4px 12px;
             border-radius: 999px;
             margin-bottom: 12px;
         }
 
         .hero-title {
-            font-size: 2.1rem;
+            font-size: 2.05rem;
             font-weight: 700;
             color: #F8FAFC;
             margin: 0 0 10px 0;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.4px;
         }
 
         .hero-desc {
             font-size: 1rem;
-            color: #94A3B8;
+            color: #CBD5E1;
             margin: 0;
             max-width: 780px;
-            line-height: 1.6;
+            line-height: 1.65;
         }
 
         .section-label {
             font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 1.4px;
-            color: #00E5FF;
-            font-weight: 600;
+            letter-spacing: 1.3px;
+            color: #FBBF24;
+            font-weight: 700;
             margin-bottom: 12px;
         }
 
-        .cyber-btn {
+        .hive-btn {
             display: inline-block;
             text-decoration: none !important;
-            background: rgba(0, 229, 255, 0.12);
-            color: #00E5FF !important;
-            border: 1px solid rgba(0, 229, 255, 0.45);
+            background: linear-gradient(135deg, #FBBF24, #F59E0B);
+            color: #0E1216 !important;
+            border: 1px solid #FDE68A;
             padding: 8px 16px;
             border-radius: 8px;
             font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
+            font-weight: 700;
+            transition: transform 0.15s ease, box-shadow 0.2s ease;
             margin-top: 6px;
         }
 
-        .cyber-btn:hover {
-            background: rgba(0, 229, 255, 0.22);
-            border-color: #00E5FF;
-            box-shadow: 0 0 14px rgba(0, 229, 255, 0.25);
+        .hive-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 16px rgba(251, 191, 36, 0.35);
         }
     </style>
     """,
@@ -95,21 +100,21 @@ st.markdown(
 
 def new_tab_button(label: str, url: str) -> str:
     return (
-        f'<a class="cyber-btn" href="{url}" target="_blank" rel="noopener noreferrer">'
+        f'<a class="hive-btn" href="{url}" target="_blank" rel="noopener noreferrer">'
         f"{label}</a>"
     )
 
 
 # 3. Sidebar Navigasi
 with st.sidebar:
-    st.markdown("### ⚡ NEXUS // DB CORE")
-    st.caption("Database Gateway & Navigation")
+    st.markdown("### 🐦🐝 GELATIK × BEE")
+    st.caption("Portal Utama Sistem Database")
     st.divider()
 
     menu = st.radio(
-        "MODUL NAVIGASI",
+        "NAVIGASI MODUL",
         [
-            "🏠 Beranda Sistem",
+            "🏠 Beranda Utama",
             "📂 Katalog Database",
             "🔍 Pencarian & Query",
             "📝 Input & Pembaruan",
@@ -119,30 +124,30 @@ with st.sidebar:
     )
 
     st.divider()
-    st.caption("MODE: ACTIVE GATEWAY")
+    st.caption("AKSES CEPAT")
     st.markdown(
         new_tab_button("Buka Dashboard Query ↗", LINK_PENCARIAN_QUERY),
         unsafe_allow_html=True,
     )
 
 # 4. Halaman Utama (Tanpa Data Dummy)
-if menu == "🏠 Beranda Sistem":
+if menu == "🏠 Beranda Utama":
     st.markdown(
         """
-        <div class="hero-box">
-            <div class="sys-badge">● Database Interface Online</div>
-            <div class="hero-title">Pusat Kontrol & Navigasi Database</div>
+        <div class="hero-gelatik-bee">
+            <div class="fusion-badge">🐦 Gelatik × 🐝 Lebah • Database Hub</div>
+            <div class="hero-title">Pusat Navigasi & Gerbang Database</div>
             <p class="hero-desc">
-                Antarmuka utama untuk mengakses berbagai modul database, katalog penyimpanan,
-                pencarian terstruktur, serta formulir pengelolaan data. Pilih modul pada panel
-                navigasi atau kartu di bawah ini.
+                Halaman utama terpadu untuk mengakses berbagai modul database, katalog koleksi,
+                pencarian terstruktur, dan formulir pembaruan. Pilih menu pada bilah samping
+                atau kartu modul di bawah ini.
             </p>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="section-label">// Daftar Modul Utama</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-label">◈ Daftar Modul Utama</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
 
@@ -197,7 +202,7 @@ if menu == "🏠 Beranda Sistem":
 
 # 5. Halaman Pencarian & Query
 elif menu == "🔍 Pencarian & Query":
-    st.markdown('<div class="section-label">// MODUL 02 • PENCARIAN & QUERY</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-label">◈ MODUL 02 • PENCARIAN & QUERY</div>', unsafe_allow_html=True)
     st.title("🔍 Pencarian & Query")
     st.write("Modul pencarian dan query terhubung ke aplikasi dashboard eksternal di tab baru.")
     st.markdown(
@@ -207,6 +212,6 @@ elif menu == "🔍 Pencarian & Query":
 
 # 6. Halaman Placeholder untuk Menu Lain
 else:
-    st.markdown(f'<div class="section-label">// {menu}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="section-label">◈ {menu}</div>', unsafe_allow_html=True)
     st.title(menu)
     st.info("Kerangka halaman sudah siap. Tautan dan fitur modul ini akan ditambahkan menyusul.")
