@@ -5,6 +5,7 @@ import streamlit as st
 LINK_PENCARIAN_QUERY = "https://dashboard-gelatik-a6gbsfmcxgwueejswhve6a.streamlit.app/"
 GELATIK_IMG_PATH = Path("gelatik.png")
 BTB_IMG_PATH = Path("BTB.jpg")
+BANNER_IMG_PATH = Path("banner_outsourcing.jpg")
 
 # 1. Konfigurasi Halaman
 st.set_page_config(
@@ -23,6 +24,7 @@ def get_base64_image(path: Path) -> str | None:
 
 gelatik_b64 = get_base64_image(GELATIK_IMG_PATH)
 btb_b64 = get_base64_image(BTB_IMG_PATH)
+banner_b64 = get_base64_image(BANNER_IMG_PATH)
 
 
 def make_logo_chip(b64: str | None, mime: str, alt: str, height_px: int, pad: str) -> str:
@@ -43,11 +45,19 @@ btb_sidebar_chip = make_logo_chip(btb_b64, "jpeg", "Logo BTB", 22, "4px 8px")
 gelatik_badge_chip = make_logo_chip(gelatik_b64, "png", "Logo Gelatik", 18, "3px 7px")
 btb_badge_chip = make_logo_chip(btb_b64, "jpeg", "Logo BTB", 18, "3px 7px")
 
+# Background Hero SPG & SPB Futuristik (overlay gelap menjaga teks tetap kontras)
+hero_bg_style = (
+    f"background: linear-gradient(90deg, rgba(11, 17, 26, 0.90) 0%, rgba(11, 17, 26, 0.72) 55%, rgba(11, 17, 26, 0.58) 100%), "
+    f"url('data:image/jpeg;base64,{banner_b64}') no-repeat center 20%; background-size: cover;"
+    if banner_b64
+    else "background: linear-gradient(135deg, rgba(19, 28, 42, 0.95), rgba(12, 18, 28, 0.97));"
+)
+
 # 2. CSS Kustom: Korporat Agency Outsourcing (Navy Slate + Amber + Grid Halus)
 st.markdown(
-    """
+    f"""
     <style>
-        .stApp {
+        .stApp {{
             background-color: #0B111A;
             background-image:
                 linear-gradient(to right, rgba(148, 163, 184, 0.04) 1px, transparent 1px),
@@ -55,19 +65,23 @@ st.markdown(
                 radial-gradient(circle at 88% 12%, rgba(245, 158, 11, 0.09), transparent 36%),
                 radial-gradient(circle at 12% 88%, rgba(56, 189, 248, 0.06), transparent 40%);
             background-size: 32px 32px, 32px 32px, 100% 100%, 100% 100%;
-        }
+        }}
 
-        .hero-outsourcing {
-            background: linear-gradient(135deg, rgba(19, 28, 42, 0.95), rgba(12, 18, 28, 0.97));
-            border: 1px solid rgba(148, 163, 184, 0.22);
+        .hero-outsourcing {{
+            {hero_bg_style}
+            border: 1px solid rgba(245, 158, 11, 0.35);
             border-left: 5px solid #F59E0B;
-            border-radius: 14px;
-            padding: 28px 32px;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+            border-radius: 16px;
+            padding: 44px 36px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
             margin-bottom: 22px;
-        }
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }}
 
-        .corp-badge {
+        .corp-badge {{
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -76,39 +90,42 @@ st.markdown(
             letter-spacing: 1px;
             text-transform: uppercase;
             color: #FBBF24;
-            background: rgba(245, 158, 11, 0.12);
-            border: 1px solid rgba(245, 158, 11, 0.38);
+            background: rgba(11, 17, 26, 0.85);
+            border: 1px solid rgba(245, 158, 11, 0.5);
             padding: 5px 12px;
             border-radius: 999px;
-            margin-bottom: 12px;
-        }
+            margin-bottom: 14px;
+            width: fit-content;
+        }}
 
-        .hero-title {
-            font-size: 2rem;
+        .hero-title {{
+            font-size: 2.15rem;
             font-weight: 700;
             color: #F8FAFC;
             margin: 0 0 10px 0;
             letter-spacing: -0.3px;
-        }
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+        }}
 
-        .hero-desc {
-            font-size: 0.98rem;
-            color: #CBD5E1;
+        .hero-desc {{
+            font-size: 1rem;
+            color: #E2E8F0;
             margin: 0;
-            max-width: 800px;
+            max-width: 720px;
             line-height: 1.65;
-        }
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+        }}
 
-        .section-label {
+        .section-label {{
             font-size: 0.82rem;
             text-transform: uppercase;
             letter-spacing: 1.3px;
             color: #FBBF24;
             font-weight: 700;
             margin-bottom: 12px;
-        }
+        }}
 
-        .corp-btn {
+        .corp-btn {{
             display: inline-block;
             text-decoration: none !important;
             background: linear-gradient(135deg, #F59E0B, #D97706);
@@ -120,12 +137,12 @@ st.markdown(
             font-weight: 700;
             transition: transform 0.15s ease, box-shadow 0.2s ease;
             margin-top: 6px;
-        }
+        }}
 
-        .corp-btn:hover {
+        .corp-btn:hover {{
             transform: translateY(-1px);
             box-shadow: 0 0 16px rgba(245, 158, 11, 0.32);
-        }
+        }}
     </style>
     """,
     unsafe_allow_html=True,
@@ -186,8 +203,8 @@ if menu == "Beranda Utama":
             <div class="hero-title">Portal Terpadu Data &amp; Operasional Outsourcing</div>
             <p class="hero-desc">
                 Gerbang utama pengelolaan basis data operasional, direktori penempatan, pencarian
-                terstruktur, serta administrasi data tenaga kerja dan klien. Pilih modul pada
-                navigasi samping atau kartu layanan di bawah ini.
+                terstruktur, serta administrasi data tenaga kerja (SPG, SPB, &amp; Field Staff) dan klien.
+                Pilih menu pada navigasi samping atau kartu layanan di bawah ini.
             </p>
         </div>
         """,
