@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
 
 LINK_PENCARIAN_QUERY = "https://dashboard-gelatik-a6gbsfmcxgwueejswhve6a.streamlit.app/"
 
@@ -97,34 +96,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
-
-def open_new_tab(url: str) -> None:
-    """Membuka URL di tab baru tanpa menutup tab halaman utama."""
-    components.html(
-        f"""
-        <script>
-            (function() {{
-                const targetUrl = {url!r};
-                try {{
-                    const win = window.open(targetUrl, "_blank", "noopener,noreferrer");
-                    if (!win && window.top) {{
-                        window.top.open(targetUrl, "_blank", "noopener,noreferrer");
-                    }}
-                }} catch (e) {{
-                    const a = document.createElement("a");
-                    a.href = targetUrl;
-                    a.target = "_blank";
-                    a.rel = "noopener noreferrer";
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                }}
-            }})();
-        </script>
-        """,
-        height=0,
-    )
 
 
 def new_tab_button(label: str, url: str) -> str:
@@ -238,8 +209,6 @@ elif menu == "🔍 Pencarian & Query":
         new_tab_button("Buka Dashboard Pencarian & Query ↗", LINK_PENCARIAN_QUERY),
         unsafe_allow_html=True,
     )
-    if st.button("Buka Ulang di Tab Baru", key="reopen_query_tab"):
-        open_new_tab(LINK_PENCARIAN_QUERY)
 
 # 6. Halaman Placeholder untuk Menu Lain
 else:
