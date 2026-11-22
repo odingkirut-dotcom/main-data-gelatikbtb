@@ -8,7 +8,7 @@ BTB_IMG_PATH = Path("BTB.jpg")
 
 # 1. Konfigurasi Halaman
 st.set_page_config(
-    page_title="GELATIK × BTB // DB Portal",
+    page_title="GELATIK × BTB // Outsourcing DB Portal",
     page_icon=str(GELATIK_IMG_PATH) if GELATIK_IMG_PATH.exists() else "DB",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -30,7 +30,7 @@ def make_logo_chip(b64: str | None, mime: str, alt: str, height_px: int, pad: st
         return ""
     return (
         f'<span style="background:rgba(248,250,252,0.96);padding:{pad};border-radius:8px;'
-        f'border:1px solid rgba(251,191,36,0.45);display:inline-flex;align-items:center;'
+        f'border:1px solid rgba(245,158,11,0.45);display:inline-flex;align-items:center;'
         f'flex-shrink:0;">'
         f'<img src="data:image/{mime};base64,{b64}" alt="{alt}" '
         f'style="height:{height_px}px;width:auto;object-fit:contain;display:block;" /></span>'
@@ -43,65 +43,64 @@ btb_sidebar_chip = make_logo_chip(btb_b64, "jpeg", "Logo BTB", 22, "4px 8px")
 gelatik_badge_chip = make_logo_chip(gelatik_b64, "png", "Logo Gelatik", 18, "3px 7px")
 btb_badge_chip = make_logo_chip(btb_b64, "jpeg", "Logo BTB", 18, "3px 7px")
 
-# 2. CSS Kustom: Gabungan Gelatik & BTB (Amber/Hex)
+# 2. CSS Kustom: Korporat Agency Outsourcing (Navy Slate + Amber + Grid Halus)
 st.markdown(
     """
     <style>
         .stApp {
-            background-color: #0E1216;
+            background-color: #0B111A;
             background-image:
-                radial-gradient(circle at 85% 15%, rgba(251, 191, 36, 0.10), transparent 35%),
-                radial-gradient(circle at 15% 85%, rgba(148, 163, 184, 0.10), transparent 40%),
-                radial-gradient(rgba(251, 191, 36, 0.06) 1px, transparent 1px),
-                radial-gradient(rgba(148, 163, 184, 0.05) 1px, #0E1216 1px);
-            background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px;
-            background-position: 0 0, 0 0, 0 0, 14px 14px;
+                linear-gradient(to right, rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+                radial-gradient(circle at 88% 12%, rgba(245, 158, 11, 0.09), transparent 36%),
+                radial-gradient(circle at 12% 88%, rgba(56, 189, 248, 0.06), transparent 40%);
+            background-size: 32px 32px, 32px 32px, 100% 100%, 100% 100%;
         }
 
-        .hero-gelatik-btb {
-            background: linear-gradient(135deg, rgba(24, 32, 40, 0.94), rgba(15, 20, 26, 0.96));
-            border: 1px solid rgba(251, 191, 36, 0.35);
-            border-left: 5px solid #FBBF24;
-            border-radius: 16px;
+        .hero-outsourcing {
+            background: linear-gradient(135deg, rgba(19, 28, 42, 0.95), rgba(12, 18, 28, 0.97));
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            border-left: 5px solid #F59E0B;
+            border-radius: 14px;
             padding: 28px 32px;
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
-            margin-bottom: 20px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+            margin-bottom: 22px;
         }
 
-        .fusion-badge {
+        .corp-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
             color: #FBBF24;
-            background: rgba(251, 191, 36, 0.12);
-            border: 1px solid rgba(251, 191, 36, 0.40);
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.38);
             padding: 5px 12px;
             border-radius: 999px;
             margin-bottom: 12px;
         }
 
         .hero-title {
-            font-size: 2.05rem;
+            font-size: 2rem;
             font-weight: 700;
             color: #F8FAFC;
             margin: 0 0 10px 0;
-            letter-spacing: -0.4px;
+            letter-spacing: -0.3px;
         }
 
         .hero-desc {
-            font-size: 1rem;
+            font-size: 0.98rem;
             color: #CBD5E1;
             margin: 0;
-            max-width: 780px;
+            max-width: 800px;
             line-height: 1.65;
         }
 
         .section-label {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             text-transform: uppercase;
             letter-spacing: 1.3px;
             color: #FBBF24;
@@ -109,12 +108,12 @@ st.markdown(
             margin-bottom: 12px;
         }
 
-        .hive-btn {
+        .corp-btn {
             display: inline-block;
             text-decoration: none !important;
-            background: linear-gradient(135deg, #FBBF24, #F59E0B);
-            color: #0E1216 !important;
-            border: 1px solid #FDE68A;
+            background: linear-gradient(135deg, #F59E0B, #D97706);
+            color: #0B111A !important;
+            border: 1px solid #FCD34D;
             padding: 8px 16px;
             border-radius: 8px;
             font-size: 0.9rem;
@@ -123,9 +122,9 @@ st.markdown(
             margin-top: 6px;
         }
 
-        .hive-btn:hover {
+        .corp-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 0 16px rgba(251, 191, 36, 0.35);
+            box-shadow: 0 0 16px rgba(245, 158, 11, 0.32);
         }
     </style>
     """,
@@ -135,7 +134,7 @@ st.markdown(
 
 def new_tab_button(label: str, url: str) -> str:
     return (
-        f'<a class="hive-btn" href="{url}" target="_blank" rel="noopener noreferrer">'
+        f'<a class="corp-btn" href="{url}" target="_blank" rel="noopener noreferrer">'
         f"{label}</a>"
     )
 
@@ -145,29 +144,29 @@ with st.sidebar:
     st.markdown(
         f'<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">'
         f'{gelatik_sidebar_chip}'
-        f'<span style="color:#FBBF24;font-weight:700;">×</span>'
+        f'<span style="color:#F59E0B;font-weight:700;">×</span>'
         f'{btb_sidebar_chip}</div>'
         f'<div style="font-size:1.15rem;font-weight:700;color:#F8FAFC;letter-spacing:0.3px;">'
         f'GELATIK × BTB</div>',
         unsafe_allow_html=True,
     )
-    st.caption("Portal Utama Sistem Database")
+    st.caption("Outsourcing Workforce & Database Portal")
     st.divider()
 
     menu = st.radio(
-        "NAVIGASI MODUL",
+        "MENU OPERASIONAL",
         [
             "Beranda Utama",
-            "Katalog Database",
+            "Katalog & Direktori",
             "Pencarian & Query",
-            "Input & Pembaruan",
-            "Arsitektur & Panduan",
-            "Tautan & Integrasi",
+            "Input & Pembaruan Data",
+            "SOP & Struktur Data",
+            "Integrasi & Tautan",
         ],
     )
 
     st.divider()
-    st.caption("AKSES CEPAT")
+    st.caption("PORTAL CEPAT")
     st.markdown(
         new_tab_button("Buka Dashboard Query ↗", LINK_PENCARIAN_QUERY),
         unsafe_allow_html=True,
@@ -177,40 +176,40 @@ with st.sidebar:
 if menu == "Beranda Utama":
     st.markdown(
         f"""
-        <div class="hero-gelatik-btb">
-            <div class="fusion-badge">
+        <div class="hero-outsourcing">
+            <div class="corp-badge">
                 {gelatik_badge_chip}
                 <span>×</span>
                 {btb_badge_chip}
-                <span>GELATIK × BTB • Database Hub</span>
+                <span>GELATIK × BTB • Workforce &amp; Outsourcing Hub</span>
             </div>
-            <div class="hero-title">Pusat Navigasi & Gerbang Database</div>
+            <div class="hero-title">Portal Terpadu Data &amp; Operasional Outsourcing</div>
             <p class="hero-desc">
-                Halaman utama terpadu untuk mengakses berbagai modul database, katalog koleksi,
-                pencarian terstruktur, dan formulir pembaruan. Pilih menu pada bilah samping
-                atau kartu modul di bawah ini.
+                Gerbang utama pengelolaan basis data operasional, direktori penempatan, pencarian
+                terstruktur, serta administrasi data tenaga kerja dan klien. Pilih modul pada
+                navigasi samping atau kartu layanan di bawah ini.
             </p>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="section-label">Daftar Modul Utama</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-label">Layanan &amp; Modul Utama</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
 
     with col1:
         with st.container(border=True):
-            st.caption("MODUL 01")
-            st.markdown("#### Katalog Database")
-            st.write("Akses indeks koleksi database, kategori arsip, dan daftar repositori data.")
-            st.button("Akses Segera Hadir", key="m1", disabled=True)
+            st.caption("MODUL 01 • DIREKTORI")
+            st.markdown("#### Katalog &amp; Direktori")
+            st.write("Akses indeks basis data penempatan, daftar unit kerja, dan arsip dokumen operasional.")
+            st.button("Segera Tersedia", key="m1", disabled=True)
 
     with col2:
         with st.container(border=True):
             st.caption("MODUL 02 • TERHUBUNG")
-            st.markdown("#### Pencarian & Query")
-            st.write("Penelusuran data terarah menggunakan filter kategori, parameter, dan kata kunci.")
+            st.markdown("#### Pencarian &amp; Query")
+            st.write("Telusuri data operasional dan penempatan secara cepat melalui filter serta query.")
             st.markdown(
                 new_tab_button("Buka Pencarian & Query ↗", LINK_PENCARIAN_QUERY),
                 unsafe_allow_html=True,
@@ -218,10 +217,10 @@ if menu == "Beranda Utama":
 
     with col3:
         with st.container(border=True):
-            st.caption("MODUL 03")
-            st.markdown("#### Input & Pembaruan")
-            st.write("Portal terpusat untuk menambahkan entri baru dan memperbarui data tersimpan.")
-            st.button("Akses Segera Hadir", key="m3", disabled=True)
+            st.caption("MODUL 03 • ADMINISTRASI")
+            st.markdown("#### Input &amp; Pembaruan Data")
+            st.write("Portal pencatatan data baru, pembaruan status, dan penyesuaian catatan administrasi.")
+            st.button("Segera Tersedia", key="m3", disabled=True)
 
     st.write("")
 
@@ -229,30 +228,30 @@ if menu == "Beranda Utama":
 
     with col4:
         with st.container(border=True):
-            st.caption("MODUL 04")
-            st.markdown("#### Arsitektur & Panduan")
-            st.write("Referensi struktur tabel, standar format data, dan pedoman penggunaan.")
-            st.button("Akses Segera Hadir", key="m4", disabled=True)
+            st.caption("MODUL 04 • TATA KELOLA")
+            st.markdown("#### SOP &amp; Struktur Data")
+            st.write("Acuan standar format data, alur kerja operasional, dan pedoman pengelolaan.")
+            st.button("Segera Tersedia", key="m4", disabled=True)
 
     with col5:
         with st.container(border=True):
-            st.caption("MODUL 05")
-            st.markdown("#### Tautan & Integrasi")
-            st.write("Jalur penghubung ke sumber data eksternal, sheet, atau layanan pendukung.")
-            st.button("Akses Segera Hadir", key="m5", disabled=True)
+            st.caption("MODUL 05 • KONEKTIVITAS")
+            st.markdown("#### Integrasi &amp; Tautan")
+            st.write("Tautan penghubung ke lembar kerja, sistem pelaporan, dan layanan pendukung.")
+            st.button("Segera Tersedia", key="m5", disabled=True)
 
     with col6:
         with st.container(border=True):
-            st.caption("MODUL 06")
-            st.markdown("#### Protokol & Akses")
-            st.write("Pengaturan hak akses, aturan keamanan, dan catatan pembaruan sistem.")
-            st.button("Akses Segera Hadir", key="m6", disabled=True)
+            st.caption("MODUL 06 • KEPATUHAN")
+            st.markdown("#### Akses &amp; Kebijakan")
+            st.write("Pengaturan otorisasi akses, kerahasiaan data, dan catatan pembaruan sistem.")
+            st.button("Segera Tersedia", key="m6", disabled=True)
 
 # 5. Halaman Pencarian & Query
 elif menu == "Pencarian & Query":
-    st.markdown('<div class="section-label">MODUL 02 • PENCARIAN & QUERY</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-label">MODUL 02 • PENCARIAN &amp; QUERY</div>', unsafe_allow_html=True)
     st.title("Pencarian & Query")
-    st.write("Dashboard dibuka di tab baru sementara halaman utama GELATIK × BTB tetap terbuka.")
+    st.write("Dashboard dibuka di tab baru sementara portal utama GELATIK × BTB tetap terbuka.")
     st.markdown(
         new_tab_button("Buka Dashboard Pencarian & Query ↗", LINK_PENCARIAN_QUERY),
         unsafe_allow_html=True,
@@ -262,4 +261,4 @@ elif menu == "Pencarian & Query":
 else:
     st.markdown(f'<div class="section-label">{menu}</div>', unsafe_allow_html=True)
     st.title(menu)
-    st.info("Kerangka halaman sudah siap. Tautan dan fitur modul ini akan ditambahkan menyusul.")
+    st.info("Kerangka modul sudah siap. Tautan dan fitur halaman ini akan ditambahkan menyusul.")
