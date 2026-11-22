@@ -4,6 +4,7 @@ import streamlit as st
 
 LINK_PENCARIAN_QUERY = "https://dashboard-gelatik-a6gbsfmcxgwueejswhve6a.streamlit.app/"
 GELATIK_IMG_PATH = Path("gelatik.png")
+BTB_IMG_PATH = Path("BTB.jpg")
 
 # 1. Konfigurasi Halaman
 st.set_page_config(
@@ -21,25 +22,26 @@ def get_base64_image(path: Path) -> str | None:
 
 
 gelatik_b64 = get_base64_image(GELATIK_IMG_PATH)
+btb_b64 = get_base64_image(BTB_IMG_PATH)
 
-sidebar_logo_html = (
-    f'<span style="background:rgba(248,250,252,0.96);padding:4px 8px;border-radius:8px;'
-    f'border:1px solid rgba(251,191,36,0.45);display:inline-flex;align-items:center;'
-    f'margin-right:8px;flex-shrink:0;">'
-    f'<img src="data:image/png;base64,{gelatik_b64}" alt="Logo Gelatik" '
-    f'style="height:22px;width:auto;object-fit:contain;display:block;" /></span>'
-    if gelatik_b64
-    else ""
-)
 
-badge_logo_html = (
-    f'<span style="background:rgba(248,250,252,0.96);padding:3px 8px;border-radius:6px;'
-    f'margin-right:8px;display:inline-flex;align-items:center;">'
-    f'<img src="data:image/png;base64,{gelatik_b64}" alt="Logo Gelatik" '
-    f'style="height:18px;width:auto;object-fit:contain;display:block;" /></span>'
-    if gelatik_b64
-    else ""
-)
+def make_logo_chip(b64: str | None, mime: str, alt: str, height_px: int, pad: str) -> str:
+    if not b64:
+        return ""
+    return (
+        f'<span style="background:rgba(248,250,252,0.96);padding:{pad};border-radius:8px;'
+        f'border:1px solid rgba(251,191,36,0.45);display:inline-flex;align-items:center;'
+        f'flex-shrink:0;">'
+        f'<img src="data:image/{mime};base64,{b64}" alt="{alt}" '
+        f'style="height:{height_px}px;width:auto;object-fit:contain;display:block;" /></span>'
+    )
+
+
+gelatik_sidebar_chip = make_logo_chip(gelatik_b64, "png", "Logo Gelatik", 22, "4px 8px")
+btb_sidebar_chip = make_logo_chip(btb_b64, "jpeg", "Logo BTB", 22, "4px 8px")
+
+gelatik_badge_chip = make_logo_chip(gelatik_b64, "png", "Logo Gelatik", 18, "3px 7px")
+btb_badge_chip = make_logo_chip(btb_b64, "jpeg", "Logo BTB", 18, "3px 7px")
 
 # 2. CSS Kustom: Gabungan Gelatik & BTB (Amber/Hex)
 st.markdown(
@@ -69,6 +71,7 @@ st.markdown(
         .fusion-badge {
             display: inline-flex;
             align-items: center;
+            gap: 6px;
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 1px;
@@ -140,9 +143,12 @@ def new_tab_button(label: str, url: str) -> str:
 # 3. Sidebar Navigasi
 with st.sidebar:
     st.markdown(
-        f'<div style="display:flex;align-items:center;margin-bottom:4px;">{sidebar_logo_html}'
-        f'<span style="font-size:1.15rem;font-weight:700;color:#F8FAFC;letter-spacing:0.3px;">'
-        f"GELATIK × BTB</span></div>",
+        f'<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">'
+        f'{gelatik_sidebar_chip}'
+        f'<span style="color:#FBBF24;font-weight:700;">×</span>'
+        f'{btb_sidebar_chip}</div>'
+        f'<div style="font-size:1.15rem;font-weight:700;color:#F8FAFC;letter-spacing:0.3px;">'
+        f'GELATIK × BTB</div>',
         unsafe_allow_html=True,
     )
     st.caption("Portal Utama Sistem Database")
@@ -172,7 +178,12 @@ if menu == "Beranda Utama":
     st.markdown(
         f"""
         <div class="hero-gelatik-btb">
-            <div class="fusion-badge">{badge_logo_html}GELATIK × BTB • Database Hub</div>
+            <div class="fusion-badge">
+                {gelatik_badge_chip}
+                <span>×</span>
+                {btb_badge_chip}
+                <span>GELATIK × BTB • Database Hub</span>
+            </div>
             <div class="hero-title">Pusat Navigasi & Gerbang Database</div>
             <p class="hero-desc">
                 Halaman utama terpadu untuk mengakses berbagai modul database, katalog koleksi,
