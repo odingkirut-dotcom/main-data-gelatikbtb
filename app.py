@@ -4,7 +4,7 @@ LINK_PENCARIAN_QUERY = "https://dashboard-gelatik-a6gbsfmcxgwueejswhve6a.streaml
 
 # 1. Konfigurasi Halaman
 st.set_page_config(
-    page_title="GELATIK × BEE // DB Portal",
+    page_title="GELATIK × BTB // DB Portal",
     page_icon="🐦",
     layout="wide",
     initial_sidebar_state="expanded",
