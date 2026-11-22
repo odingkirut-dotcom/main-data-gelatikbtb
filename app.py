@@ -23,10 +23,11 @@ def get_base64_image(path: Path) -> str | None:
 gelatik_b64 = get_base64_image(GELATIK_IMG_PATH)
 
 sidebar_logo_html = (
-    f'<div style="background:rgba(248,250,252,0.96);padding:8px 12px;border-radius:10px;'
-    f'border:1px solid rgba(251,191,36,0.45);margin-bottom:10px;width:100%;max-width:210px;">'
+    f'<span style="background:rgba(248,250,252,0.96);padding:4px 8px;border-radius:8px;'
+    f'border:1px solid rgba(251,191,36,0.45);display:inline-flex;align-items:center;'
+    f'margin-right:8px;flex-shrink:0;">'
     f'<img src="data:image/png;base64,{gelatik_b64}" alt="Logo Gelatik" '
-    f'style="width:100%;max-height:46px;object-fit:contain;display:block;" /></div>'
+    f'style="height:22px;width:auto;object-fit:contain;display:block;" /></span>'
     if gelatik_b64
     else ""
 )
@@ -138,8 +139,12 @@ def new_tab_button(label: str, url: str) -> str:
 
 # 3. Sidebar Navigasi
 with st.sidebar:
-    st.markdown(sidebar_logo_html, unsafe_allow_html=True)
-    st.markdown("### GELATIK × BTB")
+    st.markdown(
+        f'<div style="display:flex;align-items:center;margin-bottom:4px;">{sidebar_logo_html}'
+        f'<span style="font-size:1.15rem;font-weight:700;color:#F8FAFC;letter-spacing:0.3px;">'
+        f"GELATIK × BTB</span></div>",
+        unsafe_allow_html=True,
+    )
     st.caption("Portal Utama Sistem Database")
     st.divider()
 
